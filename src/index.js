@@ -18,7 +18,7 @@ function Restart(props) {
 
 // ajax request
 function request() {
-	const url = 'http://78.155.218.226:8000/';
+	const url = 'https://78.155.218.226:8000/';
 	return new Promise(function(resolve, reject) {
 		var req = new XMLHttpRequest();
 		req.open('GET', url);
