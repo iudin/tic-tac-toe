@@ -16,6 +16,27 @@ function Restart(props) {
 	);
 }
 
+// ajax request
+function request() {
+	const url = 'http://78.155.218.226:8000/';
+	return new Promise(function(resolve, reject) {
+		var req = new XMLHttpRequest();
+		req.open('GET', url);
+		req.onload = function() {
+			if (req.status === 200) {
+				resolve(req.response);
+			} else {
+				reject(Error(req.statusText));
+			}
+		};
+		req.onerror = function() {
+			reject(Error('Network error!'))
+		};
+		req.send();
+	});
+}
+//
+
 class Board extends React.Component {
 	constructor() {
 		super();
@@ -79,6 +100,11 @@ class Board extends React.Component {
 	}
 	render() {
 		let status;
+		request().then(function(response) {
+			console.log(response);
+		}).catch(function(err) {
+			console.log('Error: ', err);
+		});
 		const winner = calculateWinner(this.state.squares)[0];
 		const noNulls = detectNulls(this.state.squares);
 		if (winner) {
